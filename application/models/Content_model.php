@@ -33,4 +33,12 @@ public function view_list() {
         $this->db->where($where);
         $this->db->delete($table);
     } 
+
+
+    public function insert($data) {
+        $insert = $this->db->insert_batch('tb_data', $data);
+        if($insert) {
+            return true;
+        }
+    }
 }

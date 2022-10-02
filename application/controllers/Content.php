@@ -7,6 +7,7 @@ class Content extends CI_Controller {
         parent::__construct();
         $this->load->model('Content_model');
         $this->load->library('form_validation');
+        // $this->load->library('excel');
     }
 	public function index()
 	{
@@ -108,4 +109,92 @@ public function deletedata() {
 
     $this->Content_model->hapus($where, 'tb_data');
 }
+
+
+// public function importdata() { 
+//     include APPPATH.'third_party/PHPExcel/Classes/PHPExcel.php';
+
+//     $config['upload_path'] = realpath('excel');
+//     $config['allower_types'] = 'xlsx|xls|csv';
+//     $config['mx_size'] = '10000';
+//     $config['encrypt_name'] = true;
+
+//     $this->load->library('upload', $config);
+
+//     if(!$this->upload->do_upload()) {
+//         $this->session->set_flashdata('sukses','<div class="alert alert-danger">Gagal Import Data'.$this->upload->display_errors().'</div>');
+
+//         redirect('Content');
+//     } else {
+//         $data_upload    = $this->upload->data();
+//         $excelreader    = new PHPExcel_Reader_Excel2007();
+//         $loadExcel      = $excelreader->load('excel/'.$data_upload['file_name']);
+//         $sheet = $loadExcel->getActiveSheet()->toArray(null, true, true);
+
+//         $data = array();
+
+//          $numrow = 1;
+//          foreach ($sheet as $row) {
+//             if($numrow > 1) {
+//                 array_push($data, array(
+//                     'name_data' => $row['A'],
+//                     'text_data' => $row['B'],
+//                     'content_data' => $row['C'],
+//                     'state' => $row['D'],
+//                 ));
+//             }
+
+//             $numrow++;
+//          }
+
+//          $this->db->insert_batch('tb_data', $data);
+
+//          unlink(realpath('excel/'.$data_upload['file_name']));
+
+//          // Upload Suksess
+//          $this->session->set_flashdata('sukses','<div class="alert alert-danger">Berhasil !!!</div>');
+//          redirect('Content');
+
+//     }
+
+
+// }
+
+// public function import_excel() {
+//     if(isset($_FILES['import']['name'])) {
+//         $path = $_FILES["import"]["tmp_name"];
+//         $object = PHPExcel_IOFactory::load($path);
+
+//         foreach ($object->getWorksheetIterator() as $worksheet) {
+//             $highestRow = $worksheet->getHighestRow();
+//             $highestColumn = $worksheet->getHighestColumn();
+
+//             for($row =2 ; $row<=$highestRow; $row++) {
+//                 $name_data = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+//                 $text_data = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+//                 $content_data = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+//                 $state = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+
+//                 $temp_data[] = array(
+//                     'name_data'     => $name_data,
+//                     'text_data'     => $text_data,
+//                     'content_data'  => $content_data,
+//                     'state'         => $state,
+//                 );
+//             }
+//         }
+
+//         $insert = $this->Content_model->import($temp_data);
+
+//         if($insert) {
+//             $this->session->set_flashdata('sukses', '<span class="glyphicon glyphicon-ok"></span> Data Berhasil di Import ke Database');
+// 				redirect($_SERVER['HTTP_REFERER']);
+//         } else {
+//             $this->session->set_flashdata('sukses', '<span class="glyphicon glyphicon-remove"></span> Terjadi Kesalahan');
+// 				redirect($_SERVER['HTTP_REFERER']);
+//         }
+//     } else {
+//         echo "Tidak ada file insert";
+//     }
+// }
 }

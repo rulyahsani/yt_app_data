@@ -1,7 +1,28 @@
 <div class="container">
 <?php echo $this->session->flashdata('sukses'); ?>
+
     <div class="card">
         <div class="card-body">
+          <!-- <div class="row">
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <form action="<?php echo base_url('Content/import_excel')?>">
+
+                  <div class="mb-3">
+                      <label class="form-label" for="content_data">Import Data</label>
+                      <input class="form-control" name="import" id="import" type="file" placeholder="Content">
+                    </div>
+
+                    <div class="mb-3">
+                      <button type="submit" class="btn btn-success">Import Data</button>
+                    </div>
+
+                </form>
+                </div>
+              </div>
+            </div>
+          </div> -->
             <div class="row">
                 <!-- <div class="col-md-2">
                     <div class="mb-3">
